@@ -6,7 +6,7 @@ on:
     branches:
       - master
 
-name: check
+name: check-all
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
           TOKEN: ${{ secrets.TOKEN }}
         run: make -j
 
-      - name: check
+      - name: check-all
         env:
           TOKEN: ${{ secrets.TOKEN }}
-        run: make check
+        run: make check-all
