@@ -17,6 +17,7 @@ jobs:
           fetch-depth: 1
 
           ## https://cran.r-project.org/bin/linux/ubuntu/README.html
+          ## https://github.com/rocker-org/rocker/blob/master/r-devel/Dockerfile
       - name: Add PPA
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
