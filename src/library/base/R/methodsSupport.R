@@ -32,10 +32,9 @@ trace <- function(what, tracer, exit, at, print, signature,
     on.exit(tracingState(tState))
     ## now call the version in the methods package, to ensure we get
     ## the correct namespace (e.g., correct version of class())
-    call <- sys.call()
-    call[[1L]] <- quote(methods::.TraceWithMethods)
-    call$where <- where
-    eval.parent(call)
+    args <- as.list(sys.call())[-1]
+    args$where <- where
+    do.call(methods::.TraceWithMethods, args, envir = parent.frame())
 }
 
 untrace <- function(what, signature = NULL, where = topenv(parent.frame())) {
@@ -46,11 +45,10 @@ untrace <- function(what, signature = NULL, where = topenv(parent.frame())) {
     on.exit(tracingState(tState))
     ## now call the version in the methods package, to ensure we get
     ## the correct namespace (e.g., correct version of class())
-    call <- sys.call()
-    call[[1L]] <- quote(methods::.TraceWithMethods)
-    call$where <- where
-    call$untrace <- TRUE
-    invisible(eval.parent(call))
+    args <- as.list(sys.call())[-1]
+    args$where <- where
+    args$untrace <- TRUE
+    invisible(do.call(methods::.TraceWithMethods, args, envir = parent.frame()))
 }
 
 
